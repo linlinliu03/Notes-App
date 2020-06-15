@@ -1,11 +1,13 @@
 // Initial setup and some test examples
 const getNotes = require("./notes");
-const validator = require("validator");
+const chalk = require("chalk");
 
 
-const note = getNotes();
+const command = process.argv[2]
 
-console.log(note)
+if(command === "add"){
+    console.log("add notes!")
+}else if(command === "remove"){
+    console.log("remove notes")
+}
 
-console.log(validator.isEmail("test@example.com"));
-console.log(validator.isURL("https://example.com"));

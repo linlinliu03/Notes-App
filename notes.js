@@ -8,9 +8,7 @@ const getNotes = () => {
 const addNotes = (title, body) => {
    const notes = loadNotes();
 
-   const duplicates = notes.filter(note => {
-       return note.title === title
-   })
+   const duplicates = notes.filter(note => note.title === title)
 
    if(duplicates.length === 0){
        notes.push({
@@ -31,9 +29,7 @@ const addNotes = (title, body) => {
 const removeNotes = (title) => {
     const notes = loadNotes();
 
-    const leftData = notes.filter(note => {
-        return note.title !== title
-    })
+    const leftData = notes.filter(note => note.title !== title)
 
 
     if(notes.length > leftData.length){

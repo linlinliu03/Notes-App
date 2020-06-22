@@ -1,16 +1,12 @@
 const fs = require("fs");
 const chalk = require("chalk");
 
-const getNotes = () => {
-    return "Your notes..."
-}
-
 const addNotes = (title, body) => {
    const notes = loadNotes();
 
-   const duplicates = notes.filter(note => note.title === title)
+   const duplicates = notes.find(note => note.title === title)
 
-   if(duplicates.length === 0){
+   if(!duplicates){
        notes.push({
            title: title,
            body: body
@@ -43,6 +39,27 @@ const removeNotes = (title) => {
 
 }
 
+const listNotes = () => {
+    const notes = loadNotes();
+
+    console.log(chalk.bgRed("Your notes"))
+
+    notes.forEach(note => console.log(note.title))
+}
+
+const readNote = (title) => {
+    const notes = loadNotes();
+
+    const noteToRead = notes.find(note => note.title === title)
+
+    if(noteToRead){
+        console.log(chalk.bgGreen(noteToRead.title));
+        console.log(noteToRead.body);
+    }else{
+        console.log(chalk.bgRed("There is no note with this title!"))
+    }
+}
+
 const saveNotes = (notes) => {
    const dataJson = JSON.stringify(notes);
    fs.writeFileSync("notes.json", dataJson); 
@@ -60,7 +77,8 @@ const loadNotes = () => {
 }
 
 module.exports = {
-    getNotes: getNotes,
     addNotes: addNotes,
-    removeNotes: removeNotes
+    removeNotes: removeNotes,
+    listNotes: listNotes,
+    readNote: readNote
 };
